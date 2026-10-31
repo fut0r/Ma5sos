@@ -1,0 +1,238 @@
+/* The two kinds of template, with a line on what sets the chosen one apart. */
+.ttabs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-block: calc(-1 * clamp(8px, 2vw, 24px)) clamp(24px, 3vw, 36px);
+  text-align: center;
+}
+
+/* Two tabs always fit, so they stay centred (the occasion picker scrolls on phones). */
+.ttabs .otabs {
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-inline: 0;
+  padding-inline: 0;
+  overflow: visible;
+}
+
+.ttabs__count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6rem;
+  height: 1.6rem;
+  padding-inline: 0.35rem;
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+
+.otabs__tab[aria-selected='true'] .ttabs__count {
+  background: rgba(255, 255, 255, 0.22);
+  color: inherit;
+}
+
+.ttabs__hint {
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* The row bleeds to the screen edges but starts in line with the page column. */
+.tcarousel {
+  --edge: max(var(--gutter), (100% - var(--wrap)) / 2);
+
+  display: flex;
+  column-gap: 18px;
+  /* Room above and below, so a card can lift on hover without being clipped. */
+  margin-block: -8px;
+  padding-block: 8px;
+  padding-inline: var(--edge);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--edge);
+  scrollbar-width: none;
+}
+
+.tcarousel::-webkit-scrollbar {
+  display: none;
+}
+
+.tcarousel:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Cards off screen are not drawn until they come near, so their pictures and
+   the templates' typefaces load only then. */
+.tcard {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 276px auto 700px;
+  flex: 0 0 min(276px, 78vw);
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  transition:
+    border-color 0.2s,
+    transform 0.28s var(--ease-out);
+}
+
+.tcard .invite {
+  transition: transform 0.35s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .tcard:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-4px);
+  }
+
+  .tcard:hover .invite {
+    transform: scale(1.03);
+  }
+}
+
+.tcard__stage {
+  display: grid;
+  place-items: center;
+  padding: 26px 22px;
+  border-radius: var(--r-md);
+  background: var(--surface-2);
+}
+
+.tcard__stage .invite {
+  max-width: 190px;
+}
+
+.tcard__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 8px 8px;
+}
+
+.tcard__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.tcard__name {
+  font-size: 1.2rem;
+}
+
+.tcard__top .pill {
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+.tcard__text {
+  flex: 1;
+  margin-block: 0.35rem 1rem;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+/* Photographed templates: the picture is the card's face, and opens the preview. */
+.tcard__stage--photo {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  border-radius: var(--r-md);
+  background: #1a1714;
+  cursor: zoom-in;
+}
+
+/* A button sizes its content to fit, and a size-contained invitation has no
+   content width of its own, so give it the button's full width. */
+.tcard__stage--photo .pinv {
+  width: 100%;
+  transition: transform 0.45s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .tcard:hover .tcard__stage--photo .pinv {
+    transform: scale(1.03);
+  }
+}
+
+.tcard__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.tcarousel__nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-block-start: 1.75rem;
+}
+
+/* The arrow icon points left ("next" in RTL); mirror it for "previous". */
+.tcarousel__prev svg {
+  transform: scaleX(-1);
+}
+
+/* On phones the cards stack one under another: a sideways strip showed the
+   next card cut in half at the screen edge. */
+@media (max-width: 600px) {
+  .tcarousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-block: 0;
+    padding-block: 0;
+    padding-inline: var(--gutter);
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .tcarousel__nav {
+    display: none;
+  }
+
+  /* Twelve tall pictures one under another would make a very long page, so
+     the photographed ones sit two to a row: picture, name, and the preview
+     (which has its own "use this template" button). */
+  .tcarousel--photo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .tcard--photo {
+    padding: 8px;
+  }
+
+  .tcard--photo .tcard__body {
+    padding: 10px 2px 2px;
+  }
+
+  .tcard--photo .tcard__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .tcard--photo .tcard__name {
+    font-size: 1.02rem;
+  }
+
+  .tcard--photo .tcard__text,
+  .tcard--photo .tcard__actions .btn--ghost {
+    display: none;
+  }
+
+  .tcard--photo .tcard__actions {
+    grid-template-columns: minmax(0, 1fr);
+    margin-block-start: 0.7rem;
+  }
+}

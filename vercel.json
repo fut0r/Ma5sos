@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastapi",
+  "buildCommand": "npm install --include=dev --no-audit --no-fund && npm run build",
+  "functions": {
+    "index.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{node_modules/**,src/**,public/**,admin/**,invite/**,login/**,packages/**,payment/**,privacy/**,terms/**,templates/**,server/**,tests/**,scripts/**,model/**,.git/**,.venv/**,__pycache__/**}"
+    }
+  }
+}

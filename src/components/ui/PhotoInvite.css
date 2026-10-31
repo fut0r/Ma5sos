@@ -1,0 +1,276 @@
+/* Sizes are in cqw, so the composition scales with its own width. */
+.pinv {
+  container-type: inline-size;
+  isolation: isolate;
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: #1a1714;
+  color: var(--ink);
+  text-align: center;
+}
+
+.pinv__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Text ---------- */
+
+.pinv__text {
+  --glow: rgba(255, 249, 240, 0.62);
+
+  position: absolute;
+  inset-block-start: var(--text-top);
+  left: calc(var(--text-x) - var(--text-width) / 2);
+  z-index: 1;
+  isolation: isolate;
+  width: var(--text-width);
+  font-family: var(--font-text);
+  text-shadow: 0 1px 2px rgba(255, 250, 240, 0.55);
+}
+
+.pinv--light .pinv__text {
+  --glow: rgba(8, 6, 4, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+}
+
+/* A soft halo of the picture's own light behind bare text. */
+.pinv__text::before {
+  content: '';
+  position: absolute;
+  inset: -14% -20%;
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--glow), transparent);
+}
+
+/* On a busy picture the text sits on a frosted card instead. */
+.pinv__text--panel {
+  padding: 5cqw 5cqw 4.5cqw;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 4cqw;
+  background: rgba(255, 250, 242, 0.82);
+  box-shadow: 0 2cqw 8cqw rgba(0, 0, 0, 0.18);
+  text-shadow: none;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.pinv__text--panel::before {
+  content: none;
+}
+
+.pinv__kicker {
+  color: var(--accent);
+  font-weight: 700;
+  font-size: calc(3.4cqw * var(--text-scale));
+  line-height: 1.5;
+}
+
+.pinv--light .pinv__kicker {
+  color: var(--accent);
+}
+
+.pinv__lead {
+  margin-block-start: 0.8cqw;
+  font-size: calc(3.5cqw * var(--text-scale));
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.pinv__line {
+  margin-block-start: 1.2cqw;
+  font-weight: 500;
+  font-size: calc(4.1cqw * var(--text-scale));
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.pinv__name {
+  margin-block-start: 1cqw;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--name-size, 10cqw) * var(--display-scale));
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.pinv__note {
+  font-weight: 700;
+  font-size: calc(3.4cqw * var(--text-scale));
+  line-height: 1.5;
+}
+
+/* Date, time and place under a short gold rule. */
+.pinv__when {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block-start: 2.2cqw;
+  font-weight: 500;
+  font-size: calc(3.3cqw * var(--text-scale));
+  line-height: 1.7;
+}
+
+.pinv__when::before {
+  content: '';
+  width: 12cqw;
+  height: 0.5cqw;
+  margin-block-end: 2cqw;
+  border-radius: 1cqw;
+  background: var(--accent);
+}
+
+/* ---------- The reveal ---------- */
+
+.pinv--opening {
+  perspective: 160cqw;
+}
+
+.pinv__doors {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Brand green with the lattice of the site's pattern, a gold line at the seam. */
+.pinv__door {
+  position: absolute;
+  inset-block: 0;
+  width: 50.5%;
+  background: #0f3d32 url('../../assets/pattern/green.svg') center / 22cqw auto;
+  backface-visibility: hidden;
+  animation: pinv-door-left 1.15s cubic-bezier(0.65, 0, 0.25, 1) 0.75s forwards;
+}
+
+.pinv__door--left {
+  left: 0;
+  box-shadow: inset -0.7cqw 0 0 #d4af7c;
+  transform-origin: left center;
+}
+
+.pinv__door--right {
+  right: 0;
+  box-shadow: inset 0.7cqw 0 0 #d4af7c;
+  transform-origin: right center;
+  animation-name: pinv-door-right;
+}
+
+/* A gold seal with the star from the logo holds the doors shut. */
+.pinv__seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 22cqw;
+  height: 22cqw;
+  margin: -11cqw 0 0 -11cqw;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f5e2b8, #d4af7c 48%, #a47c3c);
+  color: #0f3d32;
+  box-shadow:
+    0 1.2cqw 4cqw rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1.2cqw rgba(255, 255, 255, 0.16);
+  animation: pinv-seal 0.55s ease-in 0.35s forwards;
+}
+
+.pinv__seal svg {
+  width: 10cqw;
+  height: 10cqw;
+}
+
+.pinv--opening .pinv__photo {
+  animation: pinv-settle 2.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.75s backwards;
+}
+
+.pinv--opening .pinv__text > * {
+  animation: rise-in 0.7s var(--ease-out) backwards;
+}
+
+.pinv--opening .pinv__text > :nth-child(1) {
+  animation-delay: 1.35s;
+}
+
+.pinv--opening .pinv__text > :nth-child(2) {
+  animation-delay: 1.47s;
+}
+
+.pinv--opening .pinv__text > :nth-child(3) {
+  animation-delay: 1.59s;
+}
+
+.pinv--opening .pinv__text > :nth-child(4) {
+  animation-delay: 1.71s;
+}
+
+.pinv--opening .pinv__text > :nth-child(5) {
+  animation-delay: 1.83s;
+}
+
+.pinv--opening .pinv__text > :nth-child(6) {
+  animation-delay: 1.95s;
+}
+
+/* The halo and the card arrive with the text, not before it. */
+.pinv--opening .pinv__text {
+  animation: pinv-fade 0.8s ease-out 1.25s backwards;
+}
+
+@keyframes pinv-seal {
+  30% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes pinv-door-left {
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotateY(100deg);
+    visibility: hidden;
+  }
+}
+
+@keyframes pinv-door-right {
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: rotateY(-100deg);
+    visibility: hidden;
+  }
+}
+
+@keyframes pinv-settle {
+  from {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes pinv-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Without motion the invitation is simply there. */
+@media (prefers-reduced-motion: reduce) {
+  .pinv__doors {
+    display: none;
+  }
+}

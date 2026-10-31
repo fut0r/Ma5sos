@@ -1,0 +1,88 @@
+/* A sheet of the opposite colour that rises over the page with rounded shoulders. */
+.features {
+  border-start-start-radius: var(--r-xl);
+  border-start-end-radius: var(--r-xl);
+}
+
+.flist {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.flist__row {
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1rem, 2.4vw, 2rem);
+  padding: clamp(1.1rem, 2.2vw, 1.6rem) clamp(1.1rem, 2.6vw, 2rem);
+  transition: background-color 0.16s;
+}
+
+.flist__row + .flist__row {
+  border-block-start: 1px solid var(--line);
+}
+
+.flist__row:hover {
+  background: var(--surface-2);
+}
+
+/* The three features the platform leads with: a gold edge, a gold tile and a
+   warmer ground. */
+.flist__row--spotlight {
+  position: relative;
+  background: var(--surface-2);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+}
+
+.flist__row--spotlight::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  background: var(--accent);
+}
+
+.flist__row--spotlight .tile {
+  background: var(--accent);
+  color: var(--brand-green);
+}
+
+.flist__num {
+  color: var(--accent-text);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.flist__copy h3 {
+  font-size: clamp(1.15rem, 1.7vw, 1.4rem);
+  line-height: 1.5;
+}
+
+.flist__copy p {
+  max-width: 44rem;
+  margin-block-start: 0.15rem;
+  color: var(--muted);
+}
+
+.flist__copy .flist__tagline {
+  margin-block-start: 0;
+  color: var(--accent-text);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .flist__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+  }
+
+  .flist__num {
+    grid-column: 1 / -1;
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,137 @@
+/* Sizes inside the sheet use cqw so the card scales with its own width. */
+.invite {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 236px;
+}
+
+.invite__sheet {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 5 / 7;
+  overflow: hidden;
+  background: var(--i-bg);
+  color: var(--i-fg);
+}
+
+.invite__orn {
+  flex-shrink: 0;
+  min-height: 7cqw;
+}
+
+.invite__orn > svg {
+  width: 100%;
+  height: auto;
+}
+
+.invite__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2cqw 9cqw;
+  text-align: center;
+}
+
+.invite__kicker {
+  color: var(--i-ac);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 5.6cqw;
+  line-height: 1.6;
+}
+
+.invite__pre {
+  margin-block-start: 1.5cqw;
+  font-size: 5cqw;
+  line-height: 1.6;
+}
+
+.invite__title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 13cqw;
+  line-height: 1.45;
+}
+
+.invite__date {
+  margin-block-start: 2.5cqw;
+  padding-block-start: 2.5cqw;
+  border-block-start: 0.6cqw solid currentColor;
+  font-weight: 700;
+  font-size: 4.4cqw;
+  line-height: 1.6;
+}
+
+/* Ornament fills */
+
+.o-ac {
+  fill: var(--i-ac);
+}
+
+.o-bg {
+  fill: var(--i-bg);
+}
+
+.o-ac-stroke {
+  fill: none;
+  stroke: var(--i-ac);
+  stroke-width: 2;
+}
+
+.invite--nakheel .o-alt {
+  fill: #4b8a6d;
+}
+
+.invite--rimal .o-alt {
+  fill: #cfa268;
+}
+
+.invite--ward .o-alt {
+  fill: #6f8f6a;
+}
+
+/* Bisht: the double gold trim of a graduation cloak. */
+
+.invite--bisht .invite__sheet::before,
+.invite--bisht .invite__sheet::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+
+.invite--bisht .invite__sheet::before {
+  inset: 5cqw;
+  border: 0.9cqw solid var(--i-ac);
+}
+
+.invite--bisht .invite__sheet::after {
+  inset: 7.6cqw;
+  border: 0.35cqw solid var(--i-ac);
+}
+
+.invite--bisht .invite__orn:first-child {
+  display: grid;
+  place-items: center;
+  padding-block-start: 16cqw;
+}
+
+.invite--bisht .invite__orn:last-child {
+  min-height: 14cqw;
+}
+
+.invite__orn > .invite__cap {
+  width: 15cqw;
+  height: 15cqw;
+  color: var(--i-ac);
+}
+
+.invite--bisht .invite__body {
+  padding-inline: 13cqw;
+}
+
+.invite--bisht .invite__title {
+  font-size: 11.5cqw;
+}

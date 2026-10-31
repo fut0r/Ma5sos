@@ -1,0 +1,16 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* In the top bar the emblem fills the height cleanly while preserving aspect ratio. */
+.emblem {
+  width: auto;
+  height: calc(var(--header-h) - 14px);
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.18));
+}
+
+.brand--large .emblem {
+  height: 136px;
+}

@@ -1,0 +1,57 @@
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee-slide 56s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+.marquee__group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.marquee__group li {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  padding-block: 1rem;
+  padding-inline-start: 1.75rem;
+  color: var(--muted);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  white-space: nowrap;
+}
+
+.marquee__sep {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+/* Arabic tickers travel left-to-right so each word enters start-first. */
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+  }
+}

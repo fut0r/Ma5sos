@@ -1,0 +1,16 @@
+node_modules
+dist
+.vercel/
+.venv/
+*.local
+.env
+# Accounts and orders (SQLite); never commit it
+server/data/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.db
+*.sqlite
+*.sqlite3
+.neon

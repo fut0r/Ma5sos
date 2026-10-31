@@ -1,0 +1,200 @@
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  border-block-end: 1px solid var(--line);
+  /* The page colour, half see-through (--header-alpha), with whatever scrolls
+     underneath blurred so the links stay readable over it. */
+  background: var(--header-bg);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Over a block of another colour the bar wears that block's palette (see
+   Header.jsx), but stays see-through instead of taking its solid fill. */
+.header.sheet,
+.header.brand-surface,
+.header.gold-surface {
+  background: var(--header-bg);
+}
+
+.header__bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: var(--header-h);
+}
+
+.header__nav {
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  margin-inline: auto;
+}
+
+/* Full-strength text: a see-through bar passes over light and dark sections,
+   and muted links would fade into some of them. */
+.header__nav a {
+  position: relative;
+  padding-block: 0.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* A gold line marks the link under the pointer and the section on screen. */
+.header__nav a::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.25s var(--ease-out);
+}
+
+.header__nav a:hover::after,
+.header__nav a[aria-current='true']::after {
+  transform: scaleX(1);
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__login {
+  padding: 0.5rem 0.4rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.header__login:hover {
+  color: var(--accent-text);
+}
+
+/* Sun and moon side by side; the filled one is the theme in use. */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 44px;
+  padding: 3px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  transition: border-color 0.16s;
+}
+
+.theme-switch:hover {
+  border-color: var(--text);
+}
+
+.theme-switch__option {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--muted);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.theme-switch__option[data-active='true'] {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+}
+
+.theme-switch svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.theme-switch__option:not([data-active='true']) svg {
+  transform: scale(0.86);
+}
+
+.header__menu-btn {
+  display: none;
+}
+
+/* ---------- Mobile menu ---------- */
+
+.header__panel {
+  display: none;
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  max-height: calc(100dvh - var(--header-h));
+  overflow-y: auto;
+  border-block-end: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.header__panel-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 1rem;
+  border-block-end: 1px solid var(--line);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.15rem;
+}
+
+.header__panel-link svg {
+  color: var(--accent-text);
+}
+
+.header__panel-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding-block: 1.25rem 1.5rem;
+}
+
+@media (max-width: 1160px) {
+  .header__nav,
+  .header__login {
+    display: none;
+  }
+
+  .header__actions {
+    margin-inline-start: auto;
+  }
+
+  .header__menu-btn {
+    display: grid;
+  }
+
+  .header__panel[data-open='true'] {
+    display: block;
+  }
+}
+
+@media (max-width: 520px) {
+  .header__cta {
+    display: none;
+  }
+
+  .header__panel-actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .header__bar {
+    gap: 0.75rem;
+  }
+
+  .theme-switch__option {
+    width: 30px;
+  }
+}

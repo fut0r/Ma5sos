@@ -1,0 +1,70 @@
+.faq {
+  max-width: 52rem;
+  margin-inline: auto;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.faq__item + .faq__item {
+  border-block-start: 1px solid var(--line);
+}
+
+.faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.25rem clamp(1.1rem, 2.6vw, 1.75rem);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.6;
+  text-align: start;
+  transition: background-color 0.16s;
+}
+
+.faq__q:hover {
+  background: var(--surface-2);
+}
+
+.faq__q:focus-visible {
+  outline-offset: -4px;
+}
+
+.faq__chevron {
+  color: var(--accent-text);
+  transition: transform 0.2s;
+}
+
+.faq__item[data-open='true'] .faq__chevron {
+  transform: rotate(180deg);
+}
+
+.faq__a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.22s ease;
+}
+
+.faq__a > div {
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s 0.22s;
+}
+
+.faq__item[data-open='true'] .faq__a {
+  grid-template-rows: 1fr;
+}
+
+.faq__item[data-open='true'] .faq__a > div {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.faq__a p {
+  padding: 0 clamp(1.1rem, 2.6vw, 1.75rem) 1.4rem;
+  color: var(--muted);
+}

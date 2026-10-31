@@ -1,0 +1,116 @@
+.ocard {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  margin-block-start: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+}
+
+.ocard__main,
+.ocard__side {
+  padding: clamp(24px, 3.6vw, 44px);
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.ocard__swap {
+  animation: swap-in 0.32s var(--ease-out);
+}
+
+.ocard__kind {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--display);
+  font-weight: 800;
+}
+
+.ocard__kind .pill {
+  border-color: var(--accent-text);
+  color: var(--accent-text);
+  font-family: var(--body);
+}
+
+.ocard__wording {
+  margin-block-start: 1.25rem;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
+  line-height: 2.05;
+  text-wrap: pretty;
+}
+
+.ocard__blank-wrap {
+  white-space: nowrap;
+}
+
+.ocard__blank {
+  margin-inline: 0.1em 0.05em;
+  padding: 0.1em 0.55em;
+  border: 1px dashed var(--accent-text);
+  border-radius: 8px;
+  color: var(--accent-text);
+  font-family: var(--body);
+  font-weight: 700;
+  font-size: 0.7em;
+}
+
+.ocard__side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  border-inline-start: 1px solid var(--line);
+}
+
+.ocard__side-title {
+  font-size: 1rem;
+}
+
+.ocard__fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block-end: auto;
+  padding-block-end: 0.75rem;
+}
+
+.ocard__fields li {
+  padding: 0.15rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 860px) {
+  /* A single swipeable row keeps eight tabs from stacking into a wall. */
+  .otabs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    margin-inline: calc(-1 * var(--gutter));
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .otabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ocard {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ocard__side {
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--line);
+  }
+}
